@@ -6,6 +6,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+.vs/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -195,5 +196,4 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
-MyAnimeList/.vs/MyAnimeList/v14/.suo
 MyAnimeList/.vs/MyAnimeList/v14/.suo
