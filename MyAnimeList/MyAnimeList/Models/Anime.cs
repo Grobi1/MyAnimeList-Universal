@@ -33,13 +33,21 @@ namespace MyAnimeList.Models
         public int Id
         {
             get { return _id; }
-            set { _id = value; }
+            set
+            {
+                _id = value;
+                OnPropertyChanged();
+            }
         }
         [DataMember]
         public string Name
         {
             get { return _name; }
-            set { _name = value; }
+            set
+            {
+                _name = value;
+                OnPropertyChanged();
+            }
         }
         [DataMember]
         public int Episodes
@@ -48,7 +56,7 @@ namespace MyAnimeList.Models
             set
             {
                 _episodes = value;
-                OnPropertyChanged("Episodes");
+                OnPropertyChanged();
             }
         }
         [DataMember]
@@ -58,7 +66,7 @@ namespace MyAnimeList.Models
             set
             {
                 _status = value;
-                OnPropertyChanged("Status");
+                OnPropertyChanged();
             }
         }
 
@@ -69,7 +77,7 @@ namespace MyAnimeList.Models
             set
             {
                 _type = value;
-                OnPropertyChanged("Type");
+                OnPropertyChanged();
             }
         }
 
@@ -80,7 +88,7 @@ namespace MyAnimeList.Models
             set
             {
                 _image = value;
-                OnPropertyChanged("ImagePath");
+                OnPropertyChanged();
             }
         }
         [DataMember]
@@ -90,7 +98,7 @@ namespace MyAnimeList.Models
             set
             {
                 _imageUrl = value;
-                OnPropertyChanged("ImageUrl");
+                OnPropertyChanged();
             }
         }
 
@@ -113,7 +121,7 @@ namespace MyAnimeList.Models
             set
             {
                 _score = value;
-                OnPropertyChanged("Score");
+                OnPropertyChanged();
             }
         }
         [DataMember]
@@ -123,7 +131,7 @@ namespace MyAnimeList.Models
             set
             {
                 _watchedEpisodes = value;
-                OnPropertyChanged("WatchedEpisodes");
+                OnPropertyChanged();
             }
         }
         [DataMember]
@@ -133,7 +141,7 @@ namespace MyAnimeList.Models
             set
             {
                 _timesRewatched = value;
-                OnPropertyChanged("TimesRewatched");
+                OnPropertyChanged();
             }
         }
         [DataMember]
@@ -143,7 +151,7 @@ namespace MyAnimeList.Models
             set
             {
                 _rewatchValue = value;
-                OnPropertyChanged("RewatchValue");
+                OnPropertyChanged();
             }
         }
 
@@ -154,7 +162,7 @@ namespace MyAnimeList.Models
             set
             {
                 _version = value;
-                OnPropertyChanged("Version");
+                OnPropertyChanged();
             }
         }
 
@@ -165,7 +173,7 @@ namespace MyAnimeList.Models
             set
             {
                 _dateStart = value;
-                OnPropertyChanged("DateStart");
+                OnPropertyChanged();
             }
         }
 
@@ -176,7 +184,7 @@ namespace MyAnimeList.Models
             set
             {
                 _dateFinish = value;
-                OnPropertyChanged("DateFinish");
+                OnPropertyChanged();
             }
         }
         #endregion

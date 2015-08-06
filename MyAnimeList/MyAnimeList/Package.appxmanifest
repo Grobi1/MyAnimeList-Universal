@@ -7,20 +7,20 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="409c17cc-13d1-4955-be8e-53f4245817e9"
-    Publisher="CN=Christoph"
+    Name="7b2c138e-6e55-4ba4-aa9a-974e0b718f68"
+    Publisher="CN=cschn"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="409c17cc-13d1-4955-be8e-53f4245817e9" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="7b2c138e-6e55-4ba4-aa9a-974e0b718f68" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>MyAnimeList</DisplayName>
-    <PublisherDisplayName>Christoph</PublisherDisplayName>
+    <PublisherDisplayName>cschn</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
   <Dependencies>
-    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.10069.0" MaxVersionTested="10.0.10069.0" />
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
   </Dependencies>
 
   <Resources>
@@ -33,10 +33,11 @@
       EntryPoint="MyAnimeList.App">
       <uap:VisualElements
         DisplayName="MyAnimeList"
-        Square150x150Logo="Assets\Logo.png"
-        Square44x44Logo="Assets\SmallLogo.png"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
         Description="MyAnimeList"
-        BackgroundColor="#464646">
+        BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace MyAnimeList.Models
 {
@@ -11,7 +12,7 @@ namespace MyAnimeList.Models
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(String propertyName)
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChangedEventHandler tempHandler = PropertyChanged;
             if (tempHandler != null)
