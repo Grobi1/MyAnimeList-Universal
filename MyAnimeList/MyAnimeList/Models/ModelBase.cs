@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 
 namespace MyAnimeList.Models
 {
-    class ModelBase : INotifyPropertyChanged
+    public class ModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

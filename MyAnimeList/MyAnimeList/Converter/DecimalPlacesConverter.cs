@@ -13,8 +13,13 @@ namespace MyAnimeList.Converter
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            double val = (double)value;
-            return Math.Round(val, Decimals);
+            try
+            {
+                double val = (double)value;
+                return Math.Round(val, Decimals);
+            }
+            catch { return 0; }
+
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

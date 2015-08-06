@@ -9,7 +9,7 @@ namespace MyAnimeList.Models
 {
     [KnownType(typeof(Anime))]
     [DataContract]
-    class Anime : ModelBase
+    public class Anime : ModelBase
     {
         int _id;
         string _name;

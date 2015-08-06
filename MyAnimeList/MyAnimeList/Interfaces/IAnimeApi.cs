@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyAnimeList.Interfaces
 {
-    interface IAnimeApi
+    public interface IAnimeApi
     {
         Task<bool> VerifyCredentialsAsync(string username, string password);
 

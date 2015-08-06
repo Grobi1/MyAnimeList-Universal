@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyAnimeList.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,13 +10,30 @@ namespace MyAnimeList.Utility
 {
     public static class UserManager
     {
+
+        private static User _serviceUser = new User();
         private static string resourceName = "MyAnimeListLogIn";
-        public static async Task<bool> SaveCredentials(string username, string password)
+
+        public static User ServiceUser
+        {
+            get
+            {
+                return _serviceUser;
+            }
+
+            set
+            {
+                _serviceUser = value;
+            }
+        }
+
+        public static bool SaveCredentials(string username, string password)
         {
             var vault = new PasswordVault();
             RemoveCredentials();
 
             vault.Add(new PasswordCredential(resourceName, username, password));
+            ServiceUser.Name = username;
             return true;
         }
 
@@ -29,6 +47,7 @@ namespace MyAnimeList.Utility
             {
                 credential = credentialList[0];
             }
+            ServiceUser.Name = credential.UserName;
             return credential;
         }
 

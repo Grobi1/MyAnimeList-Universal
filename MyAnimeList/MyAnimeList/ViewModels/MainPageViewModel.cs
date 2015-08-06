@@ -1,28 +1,64 @@
 ﻿using MyAnimeList.Models;
+using MyAnimeList.Utility;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Data;
 
 namespace MyAnimeList.ViewModels
 {
-    class MainPageViewModel
+    class MainPageViewModel : ViewModelBase
     {
-        ObservableCollection<Anime> _watchedAnime;
+        RelayCommand _togglePaneCommand;
 
-        public ObservableCollection<Anime> WatchedAnime
+        bool _isPaneOpen;
+
+        public bool IsPaneOpen
         {
             get
             {
-                return _watchedAnime;
+                return _isPaneOpen;
             }
 
             set
             {
-                _watchedAnime = value;
+                if (!UserManager.HasCredentials())
+                {
+                    _isPaneOpen = true;
+                }
+                else
+                    _isPaneOpen = value;
+                OnPropertyChanged();
             }
+        }
+
+        public bool CanTogglePane { get { return true; }  }
+
+        public RelayCommand TogglePaneCommand
+        {
+            get
+            {
+                return _togglePaneCommand;
+            }
+
+            set
+            {
+                _togglePaneCommand = value;
+            }
+        }
+
+        public MainPageViewModel()
+        {
+            TogglePaneCommand = new RelayCommand(param => TogglePane() , param => CanTogglePane);
+            IsPaneOpen = !UserManager.HasCredentials();
+        }
+
+        public void TogglePane()
+        {
+            IsPaneOpen = !IsPaneOpen;
         }
     }
 }
