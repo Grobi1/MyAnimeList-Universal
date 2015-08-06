@@ -28,5 +28,11 @@ namespace MyAnimeList.Views
             this.InitializeComponent();
             DataContext = new MainPageViewModel();
         }
+
+        private void SplitView_PaneClosing(SplitView sender, SplitViewPaneClosingEventArgs args)
+        {
+            if (!(sender.DataContext as MainPageViewModel).UserVM.IsLoggedIn)
+                args.Cancel = true;
+        }
     }
 }

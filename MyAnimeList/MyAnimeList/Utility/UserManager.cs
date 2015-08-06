@@ -11,13 +11,15 @@ namespace MyAnimeList.Utility
     public static class UserManager
     {
 
-        private static User _serviceUser = new User();
+        private static User _serviceUser;
         private static string resourceName = "MyAnimeListLogIn";
 
         public static User ServiceUser
         {
             get
             {
+                if (_serviceUser == null)
+                    _serviceUser = new User();
                 return _serviceUser;
             }
 
@@ -59,6 +61,7 @@ namespace MyAnimeList.Utility
                 var credentialList = vault.FindAllByResource(resourceName);
                 foreach (var credential in credentialList)
                     vault.Remove(credential);
+                ServiceUser = null;
             }
             catch { }
         }

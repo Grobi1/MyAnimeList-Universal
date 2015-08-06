@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyAnimeList.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -29,11 +30,19 @@ namespace MyAnimeList.Views
             Application.Current.Exit();
         }
 
-        private void PasswordBox_KeyUp(object sender, KeyRoutedEventArgs e)
-        {             
-            //login
-            //if (e.Key == Windows.System.VirtualKey.Enter)
+        private async void PasswordBox_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                await (DataContext as UserViewModel).LogIn();
+            }
 
+        }
+
+        private void TextBox_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+                passwordBox.Focus(FocusState.Programmatic);
         }
     }
 }

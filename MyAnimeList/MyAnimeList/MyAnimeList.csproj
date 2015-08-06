@@ -101,6 +101,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="Converter\DecimalPlacesConverter.cs" />
     <Compile Include="CustomControls\CircularRatingControl.xaml.cs">
       <DependentUpon>CircularRatingControl.xaml</DependentUpon>

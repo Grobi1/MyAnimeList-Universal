@@ -14,7 +14,10 @@ namespace MyAnimeList.ViewModels
     {
         RelayCommand _togglePaneCommand;
 
+        string _userName;
         bool _isPaneOpen;
+
+        UserViewModel _userVM;
 
         public bool IsPaneOpen
         {
@@ -50,10 +53,45 @@ namespace MyAnimeList.ViewModels
             }
         }
 
+        public string UserName
+        {
+            get
+            {
+                return _userName;
+            }
+
+            set
+            {
+                _userName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public UserViewModel UserVM
+        {
+            get
+            {
+                return _userVM;
+            }
+
+            set
+            {
+                _userVM = value;
+            }
+        }
+
         public MainPageViewModel()
         {
             TogglePaneCommand = new RelayCommand(param => TogglePane() , param => CanTogglePane);
-            IsPaneOpen = !UserManager.HasCredentials();
+            UserVM = new UserViewModel();
+            bool result = UserManager.HasCredentials();
+            IsPaneOpen = !result;
+            if(result)
+            {
+                UserManager.GetCredentialFromLocker();
+                UserName = UserManager.ServiceUser.Name;
+                UserVM.IsLoggedIn = true;
+            }
         }
 
         public void TogglePane()
