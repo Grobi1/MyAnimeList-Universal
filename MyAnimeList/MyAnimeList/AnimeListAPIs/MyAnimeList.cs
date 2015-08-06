@@ -36,44 +36,38 @@ namespace MyAnimeList.AnimeListAPIs
 
         public async Task<ObservableCollection<Anime>> GetAnimeListAsync()
         {
-            await Task.Run(async () =>
+            try
             {
-                try
+                string userName = UserManager.GetCredentialFromLocker().UserName;
+
+                Task<string> getStringTask = _client.GetStringAsync("http://myanimelist.net/malappinfo.php?status=all&u=" + userName + "&nocache=" + DateTime.UtcNow.ToString("r"));
+                XDocument xDoc = XDocument.Parse(await getStringTask.ConfigureAwait(false));
+
+                ObservableCollection<Anime> animeList = new ObservableCollection<Anime>(); ;
+
+                Anime a;
+                foreach (XElement e in xDoc.Root.Elements("anime"))
                 {
-                    string userName = UserManager.GetCredentialFromLocker().UserName;
-
-
-                    Task<string> getStringTask = _client.GetStringAsync("http://myanimelist.net/malappinfo.php?status=all&u=" + userName + "&nocache=" + DateTime.UtcNow.ToString("r"));
-                    XDocument xDoc = XDocument.Parse(await getStringTask);
-
-                    ObservableCollection<Anime> animeList = new ObservableCollection<Anime>(); ;
-
-                    Anime a;
-                    foreach (XElement e in xDoc.Root.Elements("anime"))
-                    {
-                        a = new Anime();
-                        a.Id = Int32.Parse(e.Element("series_animedb_id").Value);
-                        a.Name = e.Element("series_title").Value;
-                        a.Episodes = Int32.Parse(e.Element("series_episodes").Value);
-                        a.Status = Int32.Parse(e.Element("my_status").Value);
-                        a.Type = Int32.Parse(e.Element("series_type").Value);
-                        //string filename = a.Id + System.Text.RegularExpressions.Regex.Replace(a.Name, @"[^a-z]", String.Empty);
-                        //a.Image = ApplicationData.Current.LocalFolder.Path + "\\images\\" + filename + ".jpg";
-                        //client.GetStreamAsync(e.Element("series_image").Value);
-                        a.WatchedEpisodes = Int32.Parse(e.Element("my_watched_episodes").Value);
-                        a.Episodes = Int32.Parse(e.Element("series_episodes").Value);
-                        a.Score = Int32.Parse(e.Element("my_score").Value);
-                        a.ImageUrl = e.Element("series_image").Value;
-                        a.Version = UInt64.Parse(e.Element("my_last_updated").Value);
-                        animeList.Add(a);
-                    }
-
-                    return animeList;
+                    a = new Anime();
+                    a.Id = Int32.Parse(e.Element("series_animedb_id").Value);
+                    a.Name = e.Element("series_title").Value;
+                    a.Episodes = Int32.Parse(e.Element("series_episodes").Value);
+                    a.Status = Int32.Parse(e.Element("my_status").Value);
+                    a.Type = Int32.Parse(e.Element("series_type").Value);
+                    //string filename = a.Id + System.Text.RegularExpressions.Regex.Replace(a.Name, @"[^a-z]", String.Empty);
+                    //a.Image = ApplicationData.Current.LocalFolder.Path + "\\images\\" + filename + ".jpg";
+                    //client.GetStreamAsync(e.Element("series_image").Value);
+                    a.WatchedEpisodes = Int32.Parse(e.Element("my_watched_episodes").Value);
+                    a.Episodes = Int32.Parse(e.Element("series_episodes").Value);
+                    a.Score = Int32.Parse(e.Element("my_score").Value);
+                    a.ImageUrl = e.Element("series_image").Value;
+                    a.Version = UInt64.Parse(e.Element("my_last_updated").Value);
+                    animeList.Add(a);
                 }
-                catch { return null; }
+
+                return animeList;
             }
-            );
-            return null;
+            catch { return null; }
         }
 
         public async Task<List<Anime>> SearchAnimeAsync(string name)
@@ -88,19 +82,14 @@ namespace MyAnimeList.AnimeListAPIs
 
         public async Task<bool> VerifyCredentialsAsync(string username, string password)
         {
-            await Task.Run(async () =>
-            {
-                var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(String.Format("{0}:{1}", username, password)));
-                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", encoded);
+            var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(String.Format("{0}:{1}", username, password)));
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", encoded);
 
-                HttpResponseMessage result = await _client.GetAsync("http://myanimelist.net/api/account/verify_credentials.xml");
+            HttpResponseMessage result = await _client.GetAsync("http://myanimelist.net/api/account/verify_credentials.xml").ConfigureAwait(false);
 
-                if (result.IsSuccessStatusCode)
-                    return true;
-                return false;
-            });
+            if (result.IsSuccessStatusCode)
+                return true;
             return false;
-
         }
     }
 }
